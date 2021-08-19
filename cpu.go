@@ -190,7 +190,7 @@ type Cpu struct {
 
 	// If the Secure Attribution Unit is preconfigured by HW or
 	// Firmware, then the settings are described here.
-	SauRegionsConfig SauRegionsConfigType `xml:"sauRegionsConfig,omitempty"`
+	SauRegionsConfig *SauRegionsConfigType `xml:"sauRegionsConfig,omitempty"`
 }
 
 func (cpu *Cpu) Select(name CpuName) {

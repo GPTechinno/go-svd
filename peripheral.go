@@ -108,10 +108,10 @@ const (
 
 type Range struct {
 	// Specify the smallest number to be written to the field.
-	Minimum uint `xml:"minimum,omitempty"`
+	Minimum uint `xml:"minimum"`
 
 	// Specify the largest number to be written to the field.
-	Maximum uint `xml:"maximum,omitempty"`
+	Maximum uint `xml:"maximum"`
 }
 
 // Define constraints for writing values to a field.
@@ -124,7 +124,7 @@ type WriteConstraint struct {
 	// can be written.
 	UseEnumeratedValues bool `xml:"useEnumeratedValues,omitempty"`
 
-	Range Range `xml:"range,omitempty"`
+	Range *Range `xml:"range,omitempty"`
 }
 
 type ReadAction string
@@ -228,7 +228,7 @@ type Field struct {
 	DimName DimName `xml:"dimName,omitempty"`
 
 	// Grouping element to create enumerations in the header file.
-	DimArrayIndex DimArrayIndex `xml:"dimArrayIndex,omitempty"`
+	DimArrayIndex *DimArrayIndex `xml:"dimArrayIndex,omitempty"`
 
 	// Name string used to identify the field.
 	// Field names must be unique within a register.
@@ -334,7 +334,7 @@ type Register struct {
 	DimName DimName `xml:"dimName,omitempty"`
 
 	// Grouping element to create enumerations in the header file.
-	DimArrayIndex DimArrayIndex `xml:"dimArrayIndex,omitempty"`
+	DimArrayIndex *DimArrayIndex `xml:"dimArrayIndex,omitempty"`
 
 	// String to identify the register.
 	// Register names are required to be unique within the scope
@@ -411,7 +411,7 @@ type Register struct {
 	ModifiedWriteValues ModifiedWriteValues `xml:"modifiedWriteValues,omitempty"`
 
 	// Three mutually exclusive options exist to set write-constraints.
-	WriteConstraint WriteConstraint `xml:"writeConstraint,omitempty"`
+	WriteConstraint *WriteConstraint `xml:"writeConstraint,omitempty"`
 
 	// If set, it specifies the side effect following a read operation.
 	// If not set, the register is not modified.
@@ -422,7 +422,7 @@ type Register struct {
 	// In case a register is subdivided into bit fields, it should
 	// be reflected in the SVD description file to create bit-access
 	// macros and bit-field structures in the header file.
-	Fields Fields `xml:"fields,omitempty"`
+	Fields *Fields `xml:"fields,omitempty"`
 }
 
 type Registers struct {
@@ -454,7 +454,7 @@ type Peripheral struct {
 	DimName DimName `xml:"dimName,omitempty"`
 
 	// Grouping element to create enumerations in the header file.
-	DimArrayIndex DimArrayIndex `xml:"dimArrayIndex,omitempty"`
+	DimArrayIndex *DimArrayIndex `xml:"dimArrayIndex,omitempty"`
 
 	// The string identifies the peripheral.
 	// Peripheral names are required to be unique for a device.
@@ -478,7 +478,7 @@ type Peripheral struct {
 	AlternatePeripheral string `xml:"alternatePeripheral,omitempty"`
 
 	// Define a name under which the System Viewer is showing this peripheral.
-	GroupName string `xml:"groupName"`
+	GroupName string `xml:"groupName,omitempty"`
 
 	// 	Define a string as prefix.
 	// All register names of this peripheral get this prefix.
@@ -548,5 +548,5 @@ type Peripheral struct {
 	Interrupt []Interrupt `xml:"interrupt,omitempty"`
 
 	// Group to enclose register definitions.
-	Registers Registers `xml:"registers,omitempty"`
+	Registers *Registers `xml:"registers,omitempty"`
 }
