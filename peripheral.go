@@ -261,21 +261,21 @@ type Field struct {
 
 	// Predefined strings set the access type. The element can be omitted
 	// if access rights get inherited from parent elements.
-	Access AccessType `xml:"access"`
+	Access *AccessType `xml:"access"`
 
 	// Describe the manipulation of data written to a field. If not specified,
 	// the value written to the field is the value stored in the field.
-	ModifiedWriteValues ModifiedWriteValues `xml:"modifiedWriteValues,omitempty"`
+	ModifiedWriteValues *ModifiedWriteValues `xml:"modifiedWriteValues,omitempty"`
 
 	// Three mutually exclusive options exist to set write-constraints.
-	WriteConstraint WriteConstraint `xml:"writeConstraint,omitempty"`
+	WriteConstraint *WriteConstraint `xml:"writeConstraint,omitempty"`
 
 	// If set, it specifies the side effect following a read operation.
 	// If not set, the field is not modified after a read.
-	ReadAction ReadAction `xml:"readAction,omitempty"`
+	ReadAction *ReadAction `xml:"readAction,omitempty"`
 
 	// Next lower level of description.
-	EnumeratedValues EnumeratedValues `xml:"enumeratedValues"`
+	EnumeratedValues *EnumeratedValues `xml:"enumeratedValues"`
 }
 
 // Grouping element to define bit-field properties of a register.
