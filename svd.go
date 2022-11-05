@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 )
 
+// AccessType : access rights
 type AccessType string
 
 const (
@@ -124,6 +125,7 @@ type Device struct {
 	VendorExtensions string `xml:"vendorExtensions,omitempty"`
 }
 
+// NewDevice : Create a Device
 func NewDevice(name string) *Device {
 	dev := Device{
 		SchemaVersion:             "1.3.6",
@@ -140,6 +142,7 @@ func NewDevice(name string) *Device {
 	return &dev
 }
 
+// SVD : Generate the device SVD
 func (dev Device) SVD() (svd []byte, err error) {
 	svd, err = xml.MarshalIndent(dev, "", "  ")
 	return append([]byte(xml.Header), svd...), err
