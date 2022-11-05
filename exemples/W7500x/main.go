@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"flag"
 	"io/ioutil"
 	"log"
 	"os"
@@ -36,8 +37,13 @@ func hex2dec2hex(hex string) string {
 }
 
 func main() {
+	pInput := flag.String("i", "", "CMSIS Device header file (w7500x.h)")
+	flag.Parse()
+	if *pInput == "" {
+		log.Fatalln("w7500x.h is mandatory (from W7500x_StdPeriph_Lib/Libraries/CMSIS/Device/WIZnet/W7500/Include/w7500x.h)")
+	}
 	// Source file 1 : CMSIS Device header
-	dat, err := ioutil.ReadFile("W7500x_StdPeriph_Lib/Libraries/CMSIS/Device/WIZnet/W7500/Include/w7500x.h")
+	dat, err := ioutil.ReadFile(*pInput)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -46,7 +52,7 @@ func main() {
 	// Device
 	dev := svd.NewDevice("W7500x")
 	dev.Vendor = "WIZnet"
-	dev.Description = "The IOP (Internet Offload Processor) W7500P  is the one-chip solution which integrates an ARM Cortex-M0, 128KB Flash and hardwired TCP/IP core & PHY for various embedded application platform especially requiring ‘Internet of things’.\nThe TCP/IP core is a market-proven hardwired TCP/IP stack with an integrated Ethernet MAC. The Hardwired TCP/IP stack supports the TCP, UDP, IPv4, ICMP, ARP, IGMP and PPPoE which has been used in various applications for years. W7500P suits best for users who need Internet connectivity for application."
+	dev.Description = "The IOP (Internet Offload Processor) W7500P is the one-chip solution which integrates an ARM Cortex-M0, 128KB Flash and hardwired TCP/IP core & PHY for various embedded application platform especially requiring ‘Internet of things’.\nThe TCP/IP core is a market-proven hardwired TCP/IP stack with an integrated Ethernet MAC. The Hardwired TCP/IP stack supports the TCP, UDP, IPv4, ICMP, ARP, IGMP and PPPoE which has been used in various applications for years. W7500P suits best for users who need Internet connectivity for application."
 	// Version
 	verMain := regexp.MustCompile(`#define[\s]__W7500X_STDPERIPH_VERSION_MAIN[\s]+\(0x([0-9a-fA-F]{2})\)`).FindStringSubmatch(w7500xH)
 	verSub1 := regexp.MustCompile(`#define[\s]__W7500X_STDPERIPH_VERSION_SUB1[\s]+\(0x([0-9a-fA-F]{2})\)`).FindStringSubmatch(w7500xH)
